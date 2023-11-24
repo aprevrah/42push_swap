@@ -37,10 +37,11 @@ void	sort_int_arr(int *arr, unsigned int size)
 	}
 }
 
-int	find_next(t_stk *stk, int min)
+int	find_next(t_stk *stk, int min, int *n1)
 {
 	int	r;
 	int	rr;
+	
 
 	r = 0;
 	rr = 0;
@@ -53,9 +54,9 @@ int	find_next(t_stk *stk, int min)
 	if (r == 0)
 		return (0);
 	else if (r > rr)
-		return (-1);
+		return (*n1 = stk->arr[rr], -1);
 	else
-		return (1);
+		return (*n1 = stk->arr[stk->size-1 - r], 1);
 }
 
 
@@ -65,8 +66,9 @@ void	solve(t_stk *a, t_stk *b, t_stk *c)
 	int				min;
 	int				next;
 	unsigned int	buckets;
+	int				n1;
 
-	buckets = 12;
+	buckets = 4;
 	sort_int_arr(c->arr, c->size);
 	i = 1;
 	while (i <= buckets)
@@ -75,18 +77,38 @@ void	solve(t_stk *a, t_stk *b, t_stk *c)
 		ft_printf("min: %d\n", min);
 		while (1)
 		{
-			next = find_next(a, min);
+			n1 = 0;
+			next = find_next(a, min, &n1);
 			if (next == 2)
 				break;
 			while (next == 1 && a->arr[a->size - 1] < min)
 			{
-				rotate(a);
-				ft_printf("ra\n");
+				if (b->size > 0 && n1 > b->arr[b->size-1] && b->arr[b->size-1] > min)
+				{
+					rotate(a);
+					rotate(b);
+					ft_printf("rr\n");
+				}
+				else
+				{
+					rotate(a);
+					ft_printf("ra\n");
+				}
 			}
 			while (next == -1 && a->arr[a->size - 1] < min)
 			{
-				rev_rotate(a);
-				ft_printf("rra\n");
+
+				if (b->size > 0 && n1 < b->arr[b->size-1] && b->arr[b->size-1] < min)
+				{
+					rev_rotate(a);
+					rev_rotate(b);
+					ft_printf("rrr\n");
+				}
+				else
+				{
+					rev_rotate(a);
+					ft_printf("rra\n");
+				}
 			}
 			push(a, b);
 			ft_printf("pb\n");
@@ -98,7 +120,7 @@ void	solve(t_stk *a, t_stk *b, t_stk *c)
 	while(i < c->size)
 	{
 		min = c->arr[i];
-		next = find_next(b, min);
+		next = find_next(b, min, &n1);
 		while (next == 1 && b->arr[b->size - 1] < min)
 		{
 			rotate(b);

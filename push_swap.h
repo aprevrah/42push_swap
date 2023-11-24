@@ -22,11 +22,14 @@ typedef struct s_stk
 }	t_stk;
 
 
-typedef struct s_tab
+typedef struct s_rotset
 {
-	t_stk	*stk_a;
-	t_stk	*stk_b;
-}	t_tab;
+	int	ra;
+	int	rb;
+	int rra;
+	int	rrb;
+	int	cost;
+}	t_rotset;
 
 void		swap(t_stk *stk);
 void		rotate(t_stk *stk);
@@ -34,6 +37,7 @@ void		rev_rotate(t_stk *stk);
 void		push(t_stk *from, t_stk *to);
 
 void		solve(t_stk *a, t_stk *b, t_stk *c);
+void		solve2(t_stk *a, t_stk *b);
 /*
 void		pa(t_tab tab);
 void		pb(t_tab tab);

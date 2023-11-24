@@ -125,7 +125,7 @@ int	main(int argc, char **argv)
 	c = init_stk(i);
 	fill_stk(a, arg_strs);
 	fill_stk(c, arg_strs);
-	solve(a, b, c);
+	solve2(a, b);
 	free_str_arr(arg_strs);
 	print_stks(a, b);
 	
