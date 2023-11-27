@@ -6,22 +6,11 @@
 /*   By: aprevrha <aprevrha@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 15:37:48 by aprevrha          #+#    #+#             */
-/*   Updated: 2023/11/27 20:20:32 by aprevrha         ###   ########.fr       */
+/*   Updated: 2023/11/27 22:33:55 by aprevrha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	get_rot(t_stk *a, int val, int *r, int *rr)
-{
-	*r = 0;
-	*rr = 0;
-	while (*r < (int)a->size && a->arr[a->size-1 - *r] != val)
-		(*r)++;
-	while (*rr < (int)a->size && a->arr[*rr] != val)
-		(*rr)++;
-	(*rr) += 1;
-}
 
 int	ab(int x)
 {
@@ -58,20 +47,58 @@ int	min(t_stk *s)
 		}
 		i++;
 	}
-	ft_printf("-> %i\n", index);
-	return (index);
+	return (min);
+}
+
+int	max(t_stk *s)
+{
+	int	i;
+	int	index;
+	int	max;
+
+	index = 0;
+	max = s->arr[0];
+	i = 1;
+	while (i < (int)s->size)
+	{
+		if (s->arr[i] > max)
+		{
+			max = s->arr[i];
+			index = i;
+		}
+		i++;
+	}
+	return (max);
+}
+
+int index_of(t_stk *s, int val)
+{
+	int	i;
+	
+	i = 0;
+	while (i < (int)s->size)
+	{
+		if (s->arr[i] == val)
+			return (i);
+		i++;
+	}
+	return (-1);
 }
 
 int	find_slot(t_stk *b, int val)
 {
-	int	m;
-	int i;
-	
-	m = 0;
+	int	mini;
+	int	maxi;
+	int m;
+	int	i;
+
 	i = 0;
 	
-	m = min(b);
-	if (val < b->arr[ind(b, m)] || val > b->arr[ind(b, m - 1)])
+	mini = min(b);
+	maxi = max(b);
+	m = index_of(b, mini);
+	//if (val < b->arr[ind(b, m)] || val > b->arr[ind(b, m - 1)])
+	if (val < mini || val > maxi)
 		return (ind(b, m - 1));
 	while (i < (int)b->size)
 	{
@@ -160,6 +187,29 @@ void	execute_rotset(t_rotset rs, t_stk *a, t_stk *b)
 	}
 }
 
+void end_rot(t_stk *a)
+{
+	int mindex;
+
+	mindex = index_of(a, min(a));
+	if (mindex > (int)a->size / 2)
+	{
+		while (mindex <= (int)a->size)
+		{
+			ft_printf("ra\n");
+			rotate(a);
+			mindex++;
+		}
+		return ;
+	}
+	while (mindex >= 0)
+		{
+			ft_printf("rra\n");
+			rev_rotate(a);
+			mindex--;
+		}
+}
+
 void	solve2(t_stk *a, t_stk *b)
 {
 	unsigned int	i;
@@ -190,4 +240,5 @@ void	solve2(t_stk *a, t_stk *b)
 		push(b, a);
 		ft_printf("pa\n");
 	}
+	end_rot(a);
 }
