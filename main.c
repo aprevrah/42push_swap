@@ -6,7 +6,7 @@
 /*   By: aprevrha <aprevrha@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 13:20:03 by aprevrha          #+#    #+#             */
-/*   Updated: 2023/11/07 19:53:42 by aprevrha         ###   ########.fr       */
+/*   Updated: 2023/11/27 20:25:16 by aprevrha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ int	main(int argc, char **argv)
 	fill_stk(a, arg_strs);
 	fill_stk(c, arg_strs);
 	solve2(a, b);
+	//solve(a, b, c);
 	free_str_arr(arg_strs);
 	print_stks(a, b);
 	

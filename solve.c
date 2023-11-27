@@ -6,7 +6,7 @@
 /*   By: aprevrha <aprevrha@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 15:37:48 by aprevrha          #+#    #+#             */
-/*   Updated: 2023/11/07 20:59:28 by aprevrha         ###   ########.fr       */
+/*   Updated: 2023/11/27 19:11:52 by aprevrha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	solve(t_stk *a, t_stk *b, t_stk *c)
 	unsigned int	buckets;
 	int				n1;
 
-	buckets = 4;
+	buckets = 10;
 	sort_int_arr(c->arr, c->size);
 	i = 1;
 	while (i <= buckets)
