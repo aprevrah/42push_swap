@@ -6,7 +6,7 @@
 /*   By: aprevrha <aprevrha@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 15:37:48 by aprevrha          #+#    #+#             */
-/*   Updated: 2023/11/27 22:33:55 by aprevrha         ###   ########.fr       */
+/*   Updated: 2023/11/28 21:08:18 by aprevrha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ind(t_stk *s, int i)
 {
 	int r;
 
-	r = i % (s->size);
+	r = i % (int)s->size;
 	if (r >= 0)
 		return (r);
 	return (r + s->size);
@@ -194,7 +194,7 @@ void end_rot(t_stk *a)
 	mindex = index_of(a, min(a));
 	if (mindex > (int)a->size / 2)
 	{
-		while (mindex <= (int)a->size)
+		while (mindex < (int)a->size - 1)
 		{
 			ft_printf("ra\n");
 			rotate(a);
