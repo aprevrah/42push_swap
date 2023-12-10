@@ -6,7 +6,7 @@
 /*   By: aprevrha <aprevrha@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 13:01:15 by aprevrha          #+#    #+#             */
-/*   Updated: 2023/11/07 16:46:12 by aprevrha         ###   ########.fr       */
+/*   Updated: 2023/12/10 21:43:53 by aprevrha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,11 @@ typedef struct s_stk
 	unsigned int	max_size;
 }	t_stk;
 
-
 typedef struct s_rotset
 {
 	int	ra;
 	int	rb;
-	int rra;
+	int	rra;
 	int	rrb;
 	int	cost;
 }	t_rotset;
@@ -38,6 +37,12 @@ void		push(t_stk *from, t_stk *to);
 
 void		solve(t_stk *a, t_stk *b, t_stk *c);
 void		solve2(t_stk *a, t_stk *b);
+
+int			ind(t_stk *s, int i);
+int			min(t_stk *s);
+int			max(t_stk *s);
+int			index_of(t_stk *s, int val);
+
 /*
 void		pa(t_tab tab);
 void		pb(t_tab tab);

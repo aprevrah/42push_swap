@@ -6,7 +6,7 @@
 /*   By: aprevrha <aprevrha@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:41:34 by aprevrha          #+#    #+#             */
-/*   Updated: 2023/11/07 17:54:33 by aprevrha         ###   ########.fr       */
+/*   Updated: 2023/12/10 21:48:46 by aprevrha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	swap(t_stk *stk)
 {
 	int	swap;
-	
+
 	if (stk->size < 2)
 		return ;
 	swap = stk->arr[stk->size - 1];
@@ -26,8 +26,8 @@ void	swap(t_stk *stk)
 void	rotate(t_stk *stk)
 {
 	unsigned int	i;
-	int 			tmp;
-	
+	int				tmp;
+
 	if (stk->size < 2)
 		return ;
 	tmp = stk->arr[stk->size - 1];
@@ -43,8 +43,8 @@ void	rotate(t_stk *stk)
 void	rev_rotate(t_stk *stk)
 {
 	unsigned int	i;
-	int 			tmp;
-	
+	int				tmp;
+
 	if (stk->size < 2)
 		return ;
 	tmp = stk->arr[0];

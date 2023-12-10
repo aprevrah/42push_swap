@@ -6,7 +6,7 @@
 /*   By: aprevrha <aprevrha@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 15:37:48 by aprevrha          #+#    #+#             */
-/*   Updated: 2023/11/27 21:03:58 by aprevrha         ###   ########.fr       */
+/*   Updated: 2023/12/10 21:46:14 by aprevrha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	sort_int_arr(int *arr, unsigned int size)
 {
-	unsigned int i;
-	unsigned int j;
-	int tmp;
-	int	*p;
-	
+	unsigned int	i;
+	unsigned int	j;
+	int				tmp;
+	int				*p;
+
 	i = 0;
 	while (i < size)
 	{
@@ -36,12 +36,13 @@ void	sort_int_arr(int *arr, unsigned int size)
 		i++;
 	}
 }
+
 void	normalize_arr(int *arr, unsigned int size)
 {
-	int	n_arr[size];
+	int				n_arr[size];
 	unsigned int	i;
 	unsigned int	j;
-	
+
 	ft_memcpy(n_arr, arr, size);
 	sort_int_arr(n_arr, size);
 	i = 0;
@@ -53,7 +54,7 @@ void	normalize_arr(int *arr, unsigned int size)
 			if (arr[i] == n_arr[j])
 			{
 				arr[i] = j;
-				break;
+				break ;
 			}
 			j++;
 		}
@@ -66,11 +67,10 @@ int	find_next(t_stk *stk, int min, int *n1)
 {
 	int	r;
 	int	rr;
-	
 
 	r = 0;
 	rr = 0;
-	while (r < (int)stk->size && stk->arr[stk->size-1 - r] < min)
+	while (r < (int)stk->size && stk->arr[stk->size - 1 - r] < min)
 		r++;
 	while (r < (int)stk->size && stk->arr[rr] < min)
 		rr++;
@@ -81,7 +81,7 @@ int	find_next(t_stk *stk, int min, int *n1)
 	else if (r > rr)
 		return (*n1 = stk->arr[rr], -1);
 	else
-		return (*n1 = stk->arr[stk->size-1 - r], 1);
+		return (*n1 = stk->arr[stk->size - 1 - r], 1);
 }
 
 
@@ -92,10 +92,9 @@ void	solve(t_stk *a, t_stk *b, t_stk *c)
 	int				next;
 	unsigned int	buckets;
 	int				n1;
-	
+
 	buckets = 10;
 	sort_int_arr(c->arr, c->size);
-	//normalize_arr(a->arr, a->size);
 	i = 1;
 	while (i <= buckets)
 	{
@@ -106,7 +105,7 @@ void	solve(t_stk *a, t_stk *b, t_stk *c)
 			n1 = 0;
 			next = find_next(a, min, &n1);
 			if (next == 2)
-				break;
+				break ;
 			while (next == 1 && a->arr[a->size - 1] < min)
 			{
 				if (b->size > 0 && n1 > b->arr[b->size-1] && b->arr[b->size-1] > min)
@@ -142,8 +141,7 @@ void	solve(t_stk *a, t_stk *b, t_stk *c)
 		i++;
 	}
 	i = 0;
-	
-	while(i < c->size)
+	while (i < c->size)
 	{
 		min = c->arr[i];
 		next = find_next(b, min, &n1);

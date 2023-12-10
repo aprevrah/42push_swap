@@ -6,7 +6,7 @@
 /*   By: aprevrha <aprevrha@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 15:37:48 by aprevrha          #+#    #+#             */
-/*   Updated: 2023/11/28 21:08:18 by aprevrha         ###   ########.fr       */
+/*   Updated: 2023/12/10 21:52:14 by aprevrha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,85 +19,17 @@ int	ab(int x)
 	return (x);
 }
 
-int	ind(t_stk *s, int i)
-{
-	int r;
-
-	r = i % (int)s->size;
-	if (r >= 0)
-		return (r);
-	return (r + s->size);
-}
-
-int	min(t_stk *s)
-{
-	int	i;
-	int	index;
-	int	min;
-
-	index = 0;
-	min = s->arr[0];
-	i = 1;
-	while (i < (int)s->size)
-	{
-		if (s->arr[i] < min)
-		{
-			min = s->arr[i];
-			index = i;
-		}
-		i++;
-	}
-	return (min);
-}
-
-int	max(t_stk *s)
-{
-	int	i;
-	int	index;
-	int	max;
-
-	index = 0;
-	max = s->arr[0];
-	i = 1;
-	while (i < (int)s->size)
-	{
-		if (s->arr[i] > max)
-		{
-			max = s->arr[i];
-			index = i;
-		}
-		i++;
-	}
-	return (max);
-}
-
-int index_of(t_stk *s, int val)
-{
-	int	i;
-	
-	i = 0;
-	while (i < (int)s->size)
-	{
-		if (s->arr[i] == val)
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
 int	find_slot(t_stk *b, int val)
 {
 	int	mini;
 	int	maxi;
-	int m;
+	int	m;
 	int	i;
 
 	i = 0;
-	
 	mini = min(b);
 	maxi = max(b);
 	m = index_of(b, mini);
-	//if (val < b->arr[ind(b, m)] || val > b->arr[ind(b, m - 1)])
 	if (val < mini || val > maxi)
 		return (ind(b, m - 1));
 	while (i < (int)b->size)
@@ -109,8 +41,6 @@ int	find_slot(t_stk *b, int val)
 	return (ind(b, m - 1));
 }
 
-
-
 t_rotset	get_rotset(int idx_a, t_stk *a, t_stk *b)
 {
 	t_rotset	rs;
@@ -121,7 +51,6 @@ t_rotset	get_rotset(int idx_a, t_stk *a, t_stk *b)
 	rs.rra = idx_a + 1;
 	rs.rb = b->size - 1 - idx_b;
 	rs.rrb = idx_b + 1;
-	
 	if (ab(rs.ra - rs.rb) < ab(rs.rra - rs.rrb))
 	{
 		rs.rra = 0;
@@ -143,6 +72,17 @@ t_rotset	get_rotset(int idx_a, t_stk *a, t_stk *b)
 	return (rs);
 }
 
+void	execute_rot(t_stk *s, void (*rot_function)(t_stk *),
+			char *rot_string, int n)
+{
+	while (n > 0)
+	{
+		ft_printf("%s\n", rot_string);
+		rot_function(s);
+		n--;
+	}
+}
+
 void	execute_rotset(t_rotset rs, t_stk *a, t_stk *b)
 {
 	while (rs.ra > 0 && rs.rb > 0)
@@ -161,35 +101,15 @@ void	execute_rotset(t_rotset rs, t_stk *a, t_stk *b)
 		rs.rra--;
 		rs.rrb--;
 	}
-	while (rs.ra > 0)
-	{
-		ft_printf("ra\n");
-		rotate(a);
-		rs.ra--;
-	}
-	while (rs.rb > 0)
-	{
-		ft_printf("rb\n");
-		rotate(b);
-		rs.rb--;
-	}
-	while (rs.rra > 0)
-	{
-		ft_printf("rra\n");
-		rev_rotate(a);
-		rs.rra--;
-	}
-	while (rs.rrb > 0)
-	{
-		ft_printf("rrb\n");
-		rev_rotate(b);
-		rs.rrb--;
-	}
+	execute_rot(a, rotate, "ra", rs.ra);
+	execute_rot(a, rev_rotate, "rra", rs.rra);
+	execute_rot(b, rotate, "rb", rs.rb);
+	execute_rot(b, rev_rotate, "rrb", rs.rrb);
 }
 
-void end_rot(t_stk *a)
+void	end_rot(t_stk *a)
 {
-	int mindex;
+	int	mindex;
 
 	mindex = index_of(a, min(a));
 	if (mindex > (int)a->size / 2)
@@ -203,11 +123,11 @@ void end_rot(t_stk *a)
 		return ;
 	}
 	while (mindex >= 0)
-		{
-			ft_printf("rra\n");
-			rev_rotate(a);
-			mindex--;
-		}
+	{
+		ft_printf("rra\n");
+		rev_rotate(a);
+		mindex--;
+	}
 }
 
 void	solve2(t_stk *a, t_stk *b)
@@ -220,7 +140,7 @@ void	solve2(t_stk *a, t_stk *b)
 	push(a, b);
 	ft_printf("pb\n");
 	ft_printf("pb\n");
-	while(a->size > 0)
+	while (a->size > 0)
 	{
 		i = 0;
 		best_rs.cost = 100000;
@@ -235,7 +155,7 @@ void	solve2(t_stk *a, t_stk *b)
 		push(a, b);
 		ft_printf("pb\n");
 	}
-	while(b->size > 0)
+	while (b->size > 0)
 	{
 		push(b, a);
 		ft_printf("pa\n");

@@ -6,7 +6,7 @@
 /*   By: aprevrha <aprevrha@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 13:20:03 by aprevrha          #+#    #+#             */
-/*   Updated: 2023/11/28 20:20:48 by aprevrha         ###   ########.fr       */
+/*   Updated: 2023/12/10 21:49:27 by aprevrha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ t_stk	*init_stk(unsigned int max_size)
 	t_stk	*stk;
 
 	stk = (t_stk *)malloc(sizeof(t_stk));
-	
+
 	stk->size = 0;
 	stk->max_size = max_size;
-	stk->arr = (int *)malloc(sizeof(int)* max_size);
+	stk->arr = (int *)malloc(sizeof(int) * max_size);
 	return (stk);
 }
 
@@ -74,8 +74,8 @@ void	fill_stk(t_stk *stk, char **strs)
 }
 void	print_stks(t_stk *stk_a, t_stk *stk_b)
 {
-	unsigned int i;
-	
+	unsigned int	i;
+
 	ft_printf("STK A:");
 	i = 0;
 	while (i < stk_a->size)
