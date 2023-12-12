@@ -6,7 +6,7 @@
 /*   By: aprevrha <aprevrha@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 13:01:15 by aprevrha          #+#    #+#             */
-/*   Updated: 2023/12/10 21:43:53 by aprevrha         ###   ########.fr       */
+/*   Updated: 2023/12/12 15:51:51 by aprevrha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int			ind(t_stk *s, int i);
 int			min(t_stk *s);
 int			max(t_stk *s);
 int			index_of(t_stk *s, int val);
+
+int			last3(t_stk *s);
 
 /*
 void		pa(t_tab tab);

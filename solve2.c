@@ -6,7 +6,7 @@
 /*   By: aprevrha <aprevrha@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 15:37:48 by aprevrha          #+#    #+#             */
-/*   Updated: 2023/12/10 21:52:14 by aprevrha         ###   ########.fr       */
+/*   Updated: 2023/12/13 00:39:24 by aprevrha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ab(int x)
 	return (x);
 }
 
-int	find_slot(t_stk *b, int val)
+int	find_slot_ascending(t_stk *b, int val)
 {
 	int	mini;
 	int	maxi;
@@ -41,39 +41,68 @@ int	find_slot(t_stk *b, int val)
 	return (ind(b, m - 1));
 }
 
-t_rotset	get_rotset(int idx_a, t_stk *a, t_stk *b)
+int	find_slot_descending(t_stk *a, int val)
+{
+	int	mini;
+	int	maxi;
+	int	m;
+	int	i;
+
+	i = 0;
+	mini = min(a);
+	maxi = max(a);
+	m = index_of(a, maxi);
+	if (val < mini || val > maxi)
+		return (ind(a, m - 1));
+	while (i < (int)a->size)
+	{
+		if ((val < a->arr[ind(a, m + i)] && val > a->arr[ind(a, m + i + 1)]))
+			return (ind(a, m + i));
+		i++;
+	}
+	return (ind(a, m - 1));
+}
+
+t_rotset	get_rotset(int idx_from, t_stk *a, t_stk *b, int to_b)
 {
 	t_rotset	rs;
-	int			idx_b;
-
-	idx_b = find_slot(b, a->arr[idx_a]);
-	rs.ra = a->size - 1 - idx_a;
-	rs.rra = idx_a + 1;
-	rs.rb = b->size - 1 - idx_b;
-	rs.rrb = idx_b + 1;
+	int			idx_to;
+	
+	if (to_b)
+	{
+		idx_to = find_slot_ascending(b, a->arr[idx_from]);
+		rs.ra = a->size - 1 - idx_from;
+		rs.rra = idx_from + 1;
+		rs.rb = b->size - 1 - idx_to;
+		rs.rrb = idx_to + 1;
+	}
+	else 
+	{
+		idx_to = find_slot_descending(a, b->arr[idx_from]);
+		rs.ra = a->size - 1 - idx_to;
+		rs.rra = idx_to + 1;
+		rs.rb = b->size - 1 - idx_from;
+		rs.rrb = idx_from + 1;
+	}
 	if (ab(rs.ra - rs.rb) < ab(rs.rra - rs.rrb))
 	{
 		rs.rra = 0;
 		rs.rrb = 0;
 		if (rs.ra > rs.rb)
-			rs.cost = rs.ra;
+			return (rs.cost = rs.ra, rs);
 		else
-			rs.cost = rs.rb;
+			return (rs.cost = rs.rb, rs);
 	}
-	else
-	{
 		rs.ra = 0;
 		rs.rb = 0;
 		if (rs.rra > rs.rrb)
-			rs.cost = rs.rra;
+			return (rs.cost = rs.rra, rs);
 		else
-			rs.cost = rs.rrb;
-	}
+			return (rs.cost = rs.rrb, rs);
 	return (rs);
 }
 
-void	execute_rot(t_stk *s, void (*rot_function)(t_stk *),
-			char *rot_string, int n)
+void	execute_rot(t_stk *s, void (*rot_function)(t_stk *), char *rot_string, int n)
 {
 	while (n > 0)
 	{
@@ -109,56 +138,95 @@ void	execute_rotset(t_rotset rs, t_stk *a, t_stk *b)
 
 void	end_rot(t_stk *a)
 {
-	int	mindex;
+	int	max_index;
 
-	mindex = index_of(a, min(a));
-	if (mindex > (int)a->size / 2)
+	max_index = index_of(a, max(a));
+	if (max_index > (int)a->size / 2)
 	{
-		while (mindex < (int)a->size - 1)
+		while (max_index < (int)a->size)
 		{
 			ft_printf("ra\n");
 			rotate(a);
-			mindex++;
+			max_index++;
 		}
 		return ;
 	}
-	while (mindex >= 0)
+	while (max_index > 0)
 	{
 		ft_printf("rra\n");
 		rev_rotate(a);
-		mindex--;
+		max_index--;
+	}
+}
+
+void	smart_sort(t_stk *a, t_stk *b, int to_b, int rest)
+{
+	unsigned int	i;
+	t_rotset		best_rs;
+	t_rotset		rs;
+	t_stk			*from;
+	t_stk			*to;
+
+	if (to_b)
+	{
+		from = a;
+		to = b;
+	}
+	else
+	{
+		from = b;
+		to = a;
+	}
+	while ((int)from->size > rest)
+	{
+		if (to->size >= 2)
+		{
+			i = 0;
+			best_rs.cost = 2147483647;
+			while (i < from->size)
+			{
+				rs = get_rotset(i, a, b, to_b);
+				if (rs.cost <= best_rs.cost)
+					best_rs = rs;
+				i++;
+			}
+			execute_rotset(best_rs, a, b);
+		}
+		push(from, to);
+		if (to_b)
+			ft_printf("pb\n");
+		else
+			ft_printf("pa\n");
 	}
 }
 
 void	solve2(t_stk *a, t_stk *b)
 {
-	unsigned int	i;
-	t_rotset		best_rs;
-	t_rotset		rs;
-
-	push(a, b);
-	push(a, b);
-	ft_printf("pb\n");
-	ft_printf("pb\n");
-	while (a->size > 0)
+	int slot;
+	// while (a->size > 0)
+	// {
+	// 	push(a, b);
+	// 	ft_printf("pb\n");
+	// }
+	smart_sort(a, b, 1, 20);
+	while (a->size > 3)
 	{
-		i = 0;
-		best_rs.cost = 100000;
-		while (i < a->size)
-		{
-			rs = get_rotset(i, a, b);
-			if (rs.cost < best_rs.cost)
-				best_rs = rs;
-			i++;
-		}
-		execute_rotset(best_rs, a, b);
 		push(a, b);
 		ft_printf("pb\n");
 	}
-	while (b->size > 0)
+	last3(a);
+	smart_sort(a, b, 0, 77);
+	//smart_sort(a, b, 0, 0);
+	while ((int)b->size > 0)
 	{
+		slot = find_slot_descending(a, b->arr[b->size - 1]);
+		if (slot > (int)a->size / 2)
+			execute_rot(a, rotate, "ra", a->size - slot - 1);
+		else
+			execute_rot(a, rev_rotate, "rra", slot + 1);
 		push(b, a);
 		ft_printf("pa\n");
 	}
 	end_rot(a);
 }
+

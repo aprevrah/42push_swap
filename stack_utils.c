@@ -6,7 +6,7 @@
 /*   By: aprevrha <aprevrha@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 20:13:53 by aprevrha          #+#    #+#             */
-/*   Updated: 2023/12/10 21:48:16 by aprevrha         ###   ########.fr       */
+/*   Updated: 2023/12/12 23:13:55 by aprevrha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	ind(t_stk *s, int i)
 {
 	int	r;
 
+	if ((int)s->size < 1)
+		return (-1);
 	r = i % (int)s->size;
 	if (r >= 0)
 		return (r);
