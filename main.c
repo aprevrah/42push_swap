@@ -6,7 +6,7 @@
 /*   By: aprevrha <aprevrha@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 13:20:03 by aprevrha          #+#    #+#             */
-/*   Updated: 2023/12/10 21:49:27 by aprevrha         ###   ########.fr       */
+/*   Updated: 2023/12/14 16:57:53 by aprevrha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,67 @@
 
 int	is_num(char *str)
 {
-	if (*str == '-')
-		str++;
-	while (*str)
+	int len;
+	
+	len = 0;
+	if (str[len] == '-')
+		len++;
+	while (str[len])
 	{
-		if (!ft_isdigit(*str))
+		if (!ft_isdigit(str[len]))
 			return (0);
+		len++;
 	}
-	return (1);
+	return (len);
 }
-/* 
-void	check_format(char **arg_strs)
+
+int	is_overflow(char *str)
+{
+	int is_min;
+	int i;
+	char *max_int;
+	
+	max_int = "2147483647";
+	is_min = 0;
+	i = 0;
+	if (*str == '-')
+	{
+		str++;
+		is_min = 1;
+	}
+	while (str[i])
+	{
+		if (str[i] > max_int[i])
+		{
+			if (i >= 9 && is_min && str[i] <= '8')
+				return (0);
+			return (1);
+		}
+		else
+			return (0);
+		i++;
+	}
+	return (0);
+}
+
+int	check_format(char **arg_strs)
 {
 	int	i;
+	int len;
 
 	i = 0;
 	while (arg_strs[i])
 	{
-		
+		len = is_num(arg_strs[i]);
+		if (len == 0 || len > 11)
+			return (1);
+		else if (len >= 10 && is_overflow(arg_strs[i]))
+			return (1);
+		i++;
 	}
-} */
+	return (0);
+}
+
 
 void	free_str_arr(char **strs)
 {
@@ -72,6 +113,8 @@ void	fill_stk(t_stk *stk, char **strs)
 	}
 	stk->size = i;
 }
+
+
 void	print_stks(t_stk *stk_a, t_stk *stk_b)
 {
 	unsigned int	i;
@@ -100,7 +143,6 @@ int	main(int argc, char **argv)
 	int		i;
 	t_stk	*a;
 	t_stk	*b;
-	t_stk	*c;
 
 	i = 0;
 	if (argc < 2)
@@ -117,20 +159,18 @@ int	main(int argc, char **argv)
 		}
 		arg_strs[i] = NULL;
 	}
-	
+	if (check_format(arg_strs))
+	{
+		printf("Error\n");
+		return (1);
+	}
 	while (arg_strs[i])
 		i++;
 	a = init_stk(i);
 	b = init_stk(i);
-	c = init_stk(i);
 	fill_stk(a, arg_strs);
-	fill_stk(c, arg_strs);
-	solve2(a, b);
-	//solve(a, b, c);
+	solve(a, b);
 	free_str_arr(arg_strs);
-	//print_stks(a, b);
-	
-	//sort_stk(stk_a);
 }
 
 

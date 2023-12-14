@@ -6,7 +6,7 @@
 /*   By: aprevrha <aprevrha@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 13:01:15 by aprevrha          #+#    #+#             */
-/*   Updated: 2023/12/12 15:51:51 by aprevrha         ###   ########.fr       */
+/*   Updated: 2023/12/13 21:06:32 by aprevrha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ void		rotate(t_stk *stk);
 void		rev_rotate(t_stk *stk);
 void		push(t_stk *from, t_stk *to);
 
-void		solve(t_stk *a, t_stk *b, t_stk *c);
-void		solve2(t_stk *a, t_stk *b);
+void		solve(t_stk *a, t_stk *b);
 
 int			ind(t_stk *s, int i);
 int			min(t_stk *s);
