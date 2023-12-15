@@ -11,7 +11,9 @@ SRCS = ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c \
  ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c ft_tolower.c \
  ft_toupper.c \
  \
- ft_printf.c ft_put_i.c ft_put_hex.c ft_put_p.c ft_put_u.c ft_put_s.c ft_put_c.c
+ ft_printf.c ft_put_i.c ft_put_hex.c ft_put_p.c ft_put_u.c ft_put_s.c ft_put_c.c \
+ \
+ get_next_line_bonus.c get_next_line_utils_bonus.c
 
 B_SRCS = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c \
  ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c

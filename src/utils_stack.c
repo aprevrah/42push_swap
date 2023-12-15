@@ -1,21 +1,74 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   last3.c                                            :+:      :+:    :+:   */
+/*   utils_stack.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aprevrha <aprevrha@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/11 21:52:08 by aprevrha          #+#    #+#             */
-/*   Updated: 2023/12/14 17:57:08 by aprevrha         ###   ########.fr       */
+/*   Created: 2023/12/10 20:13:53 by aprevrha          #+#    #+#             */
+/*   Updated: 2023/12/15 01:54:27 by aprevrha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../include/push_swap.h"
 
-// All the different cases:
-// 2 1  3 2  3 1
-// 1 2  2 3  1 3
-// 3 3  1 1  2 2
+int	ind(t_stk *s, int i)
+{
+	int	r;
+
+	if ((int)s->size < 1)
+		return (-1);
+	r = i % (int)s->size;
+	if (r >= 0)
+		return (r);
+	return (r + s->size);
+}
+
+int	min(t_stk *s)
+{
+	int	i;
+	int	min;
+
+	min = s->arr[0];
+	i = 1;
+	while (i < (int)s->size)
+	{
+		if (s->arr[i] < min)
+			min = s->arr[i];
+		i++;
+	}
+	return (min);
+}
+
+int	max(t_stk *s)
+{
+	int	i;
+	int	max;
+
+	max = s->arr[0];
+	i = 1;
+	while (i < (int)s->size)
+	{
+		if (s->arr[i] > max)
+			max = s->arr[i];
+		i++;
+	}
+	return (max);
+}
+
+int	index_of(t_stk *s, int val)
+{
+	int	i;
+
+	i = 0;
+	while (i < (int)s->size)
+	{
+		if (s->arr[i] == val)
+			return (i);
+		i++;
+	}
+	return (-1);
+}
 
 int	last3(t_stk *s)
 {
@@ -42,6 +95,11 @@ int	last3(t_stk *s)
 	}
 	return (1);
 }
+
+// All the different cases:
+// 2 1  3 2  3 1
+// 1 2  2 3  1 3
+// 3 3  1 1  2 2
 /* Full sort with rotate
 int	last3(t_stk *s)
 {

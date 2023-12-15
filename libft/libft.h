@@ -6,7 +6,7 @@
 /*   By: aprevrha <aprevrha@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:47:13 by aprevrha          #+#    #+#             */
-/*   Updated: 2023/10/07 15:05:51 by aprevrha         ###   ########.fr       */
+/*   Updated: 2023/12/14 23:15:36 by aprevrha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct s_list
 }	t_list;
 
 int				ft_printf(const char *s, ...);
+char			*get_next_line(int fd);
 
 int				ft_isalpha(int c);
 int				ft_isdigit(int c);
