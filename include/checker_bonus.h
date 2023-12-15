@@ -6,7 +6,7 @@
 /*   By: aprevrha <aprevrha@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 13:01:15 by aprevrha          #+#    #+#             */
-/*   Updated: 2023/12/15 02:53:46 by aprevrha         ###   ########.fr       */
+/*   Updated: 2023/12/15 03:18:48 by aprevrha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 
-# define VERBOSE_ERR 1
+# define VERBOSE_ERR 0
 
 typedef struct s_stk
 {
