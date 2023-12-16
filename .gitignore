@@ -1,0 +1,7 @@
+objs
+*.o
+checker
+.vscode
+visualizer
+checker_linux
+imgui.ini
