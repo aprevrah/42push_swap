@@ -6,7 +6,7 @@
 /*   By: aprevrha <aprevrha@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 22:34:46 by aprevrha          #+#    #+#             */
-/*   Updated: 2023/12/15 03:17:36 by aprevrha         ###   ########.fr       */
+/*   Updated: 2023/12/15 16:57:36 by aprevrha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,16 +82,16 @@ int	main(int argc, char **argv)
 	t_stk	*b;
 	int		i;
 
-	if (argc < 2)
-		return (1);
 	arg_strs = handle_input(argc, argv);
+	if (!arg_strs)
+		return (p_err_nnl("EmptyStr or malloc error while parsing input\n"), 1);
 	if (check_format(arg_strs))
 		return (p_err_nnl("Invalid format\n"), free_str_arr(arg_strs), 1);
 	i = 0;
 	while (arg_strs[i])
 		i++;
-	a = init_stk(i);
-	b = init_stk(i);
+	a = init_stk(i, arg_strs);
+	b = init_stk(i, arg_strs);
 	fill_stk(a, arg_strs);
 	free_str_arr(arg_strs);
 	if (check_duplicates(a) == 1)

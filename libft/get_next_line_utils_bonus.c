@@ -6,7 +6,7 @@
 /*   By: aprevrha <aprevrha@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:16:47 by aprevrha          #+#    #+#             */
-/*   Updated: 2023/12/14 23:19:52 by aprevrha         ###   ########.fr       */
+/*   Updated: 2023/12/15 15:57:15 by aprevrha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ char	*gnl_ft_strjoin(char *s1, char *s2)
 	int				i;
 	int				j;
 
-	jstr = (char *)malloc(sizeof(char) * (gnl_ft_strlen(s1) + gnl_ft_strlen(s2) + 1));
+	jstr = (char *)malloc(sizeof(char) * (gnl_ft_strlen(s1)
+				+ gnl_ft_strlen(s2) + 1));
 	if (!jstr)
 		return (free(s1), s1 = NULL, NULL);
 	i = 0;

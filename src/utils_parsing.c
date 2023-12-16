@@ -6,7 +6,7 @@
 /*   By: aprevrha <aprevrha@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 22:36:43 by aprevrha          #+#    #+#             */
-/*   Updated: 2023/12/15 01:54:34 by aprevrha         ###   ########.fr       */
+/*   Updated: 2023/12/15 16:54:27 by aprevrha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	is_num(char *str)
 	len = 0;
 	if (str[len] == '-')
 		len++;
+	if (str[len] == '0' && str[len + 1] != '\0' )
+		return (0);
 	while (str[len])
 	{
 		if (!ft_isdigit(str[len]))
@@ -81,14 +83,20 @@ char	**handle_input(int argc, char **argv)
 	int		i;
 
 	i = 0;
+	if (argc == 2 && argv[1][0] == 0)
+		return (NULL);
 	if (argc == 2)
 		arg_strs = ft_split(argv[1], ' ');
 	else
 	{
 		arg_strs = (char **)malloc(sizeof(char *) * argc);
+		if (!arg_strs)
+			return (NULL);
 		while (i + 1 < argc)
 		{
 			arg_strs[i] = ft_strdup(argv[i + 1]);
+			if (!arg_strs[i])
+				return (free_str_arr(arg_strs), NULL);
 			i++;
 		}
 		arg_strs[i] = NULL;

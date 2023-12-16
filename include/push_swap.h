@@ -6,7 +6,7 @@
 /*   By: aprevrha <aprevrha@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 13:01:15 by aprevrha          #+#    #+#             */
-/*   Updated: 2023/12/15 03:18:46 by aprevrha         ###   ########.fr       */
+/*   Updated: 2023/12/15 16:35:57 by aprevrha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	execute_rot(t_stk *s, void (*rot_function)(t_stk *),
 void	execute_rotset(t_rotset rs, t_stk *a, t_stk *b);
 
 //utils_stack_management.c
-t_stk	*init_stk(unsigned int max_size);
+t_stk	*init_stk(unsigned int max_size, char **arg_strs_to_free);
 void	fill_stk(t_stk *stk, char **strs);
 void	free_str_arr(char **strs);
 void	free_stk(t_stk *s);

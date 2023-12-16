@@ -6,7 +6,7 @@
 /*   By: aprevrha <aprevrha@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 15:37:48 by aprevrha          #+#    #+#             */
-/*   Updated: 2023/12/15 03:12:32 by aprevrha         ###   ########.fr       */
+/*   Updated: 2023/12/15 15:54:56 by aprevrha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,8 @@ void	solve(t_stk *a, t_stk *b)
 		push(a, b);
 		ft_printf("pb\n");
 	}
-	last3(a);
+	if ((int)a->size == 3)
+		last3(a);
 	dumb_sort(b, a);
 	end_rot(a);
 }
